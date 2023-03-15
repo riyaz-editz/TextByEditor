@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import './App.css';
 import Alert from './components/Alert';
-import Form from './components/Form';
+import Form from './components/Textform';
 import Navbar from './components/Navbar';
 // import About from './components/About';
 

@@ -27,7 +27,7 @@ export default function Form(props) {
   }
   const handle_copy_click = ()=>{
     let val = document.getElementById("mybox")
-    val.select()
+    // val.select()
     navigator.clipboard.writeText(val.value)
     props.showalert("Copied succesfully!", "success")
 
@@ -50,21 +50,21 @@ export default function Form(props) {
 
       {/* <span className="input-group-text">{props.title}</span> */}
       <textarea className="form-control" placeholder="Describe yourself here..." rows={8} id='mybox' value={text} onChange={handleupchange} style={{backgroundColor:props.Mode === "dark"?"#0F2137":"white", color:props.Mode === "dark"?"white":"#0f2c63" }}></textarea>
-      <button className="btn my-3 btn-primary mx-1" onClick={handleupclick}>Convert to uppercase</button>
-      <button className="btn my-3 mx-1 btn-primary" onClick={handlelowclick}>Convert to lowercase</button>
-      <button className="btn my-3 mx-1 btn-primary px-4" onClick={handle_copy_click}>Copy all Text</button>
-      <button className="btn my-3 mx-1 btn-primary px-4" onClick={handle_exspacr_click}>Remove ext spaces</button>
+      <button className="btn my-3 btn-primary mx-1" onClick={handleupclick} disabled={text.length===0}>Convert to uppercase</button>
+      <button className="btn my-3 mx-1 btn-primary" onClick={handlelowclick} disabled={text.length===0}>Convert to lowercase</button>
+      <button className="btn my-3 mx-1 btn-primary px-4" onClick={handle_copy_click} disabled={text.length===0}>Copy all Text</button>
+      <button className="btn my-3 mx-1 btn-primary px-4" onClick={handle_exspacr_click}  disabled={text.length===0}>Remove ext spaces</button>
 
-      <button className="btn btn-danger" id='clr_btn'  onClick={handleblankclick}> Clear all</button>
+      <button className="btn btn-danger" id='clr_btn' disabled={text.length===0}  onClick={handleblankclick}> Clear all</button>
 
     </div>
     <div className="container my-3" style={{color:props.Mode === "dark"?"white":"#0f2c53"}}>
       <h2> <b> Your Text Summary </b></h2>
-      <p><b>{text.split(" ").length}</b> Word <b>{text.length}</b> Characters</p>
-      <p> <b>{0.008 * text.split(" ").length}</b> Minutes read</p>
+      <p><b>{text.split(/\s+/).filter((element)=>{return element.length!==0}).length}</b> Word <b>{text.length}</b> Characters</p>
+      <p> <b>{0.008 * text.split(" ").filter((element)=>{return element.length!==0}).length}</b> Minutes read</p>
       <h2 className='my-1' > <b> Preview </b></h2>
       <hr />
-      <p>{text.length>0?text:"Enter something in the textbox above to preview it here..."}</p>
+      <p>{text.length>0?text:"Nothing to preview here!..."}</p>
     </div>
     </>
   )
